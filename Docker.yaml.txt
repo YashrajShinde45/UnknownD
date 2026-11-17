@@ -29,7 +29,7 @@ git branch -M main
 
 
 
-EXP3 & 4 both : Collaborating on Projects using GitHub and Pull Requests
+EXP3 : Collaborating on Projects using GitHub and Pull Requests
 
 Download git , github account . perform exp 2 as it is 
 
@@ -101,6 +101,278 @@ Review -> approve -> merge
 After that push to main 
 git checkout -b main
 Git push origin main
+
+EXP4 : Git workflow
+create repo
+https://github.com/YOUR_USERNAME/Experiment-4-GitFlow.git -> copy it
+Part 3: Clone the repository
+Step 7. Open Git Bash
+1. Open Git Bash.
+2. Move to Desktop:
+cd ~/Desktop
+
+
+3. Clone the repository:
+git clone https://github.com/YOUR_USERNAME/Experiment-4-GitFlow.git
+4. Enter the project folder:
+cd Experiment-4-GitFlow
+
+
+Step 8. Check existing branches
+git branch
+
+
+Expected output:
+* main
+Part 4: Create the develop branch
+Step 9. Create develop branch
+Execute:
+git checkout -b develop
+
+
+Expected output:
+Switched to a new branch 'develop'
+
+
+Check branches:
+git branch
+
+
+Expected:
+* develop
+  main
+
+Experiment-4-GitFlow
+│
+├── README.md
+├── index.html
+└── style.css
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GitFlow Experiment</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Welcome to GitFlow Project</h1>
+    <p>This project demonstrates GitFlow workflow.</p>
+
+</body>
+</html>
+
+body {
+    font-family: Arial;
+    text-align: center;
+    background-color: lightblue;
+}
+
+h1 {
+    color: darkblue;
+}
+
+
+Step 11. Check project status
+In Git Bash, execute:
+git status
+
+
+Expected output will show the new files as untracked:
+Untracked files:
+  index.html
+  style.css
+
+
+Step 12. Add files to staging
+git add .
+
+
+Step 13. Commit the files
+git commit -m "file commit"
+
+
+Expected output:
+2 files changed
+
+
+Step 14. Push develop branch to GitHub
+git push -u origin develop
+
+
+Expected output:
+[new branch] develop -> develop
+
+Part 5: Create a feature branch
+Step 15. Create feature branch
+In Git Bash, execute:
+git checkout -b feature
+
+
+Expected:
+Switched to a new branch 'feature'
+
+
+Step 16. Make changes in the project
+Open index.html and add this line below the existing paragraph:
+<h2>New Feature Added</h2>
+
+
+Save the file.
+Step 17. Commit and push feature branch
+Execute:
+git status
+
+
+git add .
+
+
+git commit -m "Added new feature"
+
+
+git push -u origin feature
+
+
+Expected:
+[new branch] feature -> feature
+
+
+Step 18. Create Pull Request on GitHub
+1. Open your GitHub repository.
+2. Click the branch dropdown.
+3. Select feature.
+4. Click Contribute or Compare & pull request, if shown.
+5. Create a Pull Request.
+For the first feature integration, use:
+Setting	Select
+Base branch (target)	develop
+Compare branch (source)	feature
+
+6. Click Create pull request.
+7. Click Merge pull request.
+8. Click Confirm merge.
+
+
+Part 6: Create Release v1.0 branch
+Step 19. Create release branch
+Go back to Git Bash.
+
+First switch to develop:
+git checkout develop
+
+
+Get the latest changes:
+git pull origin develop
+
+
+Create the release branch:
+git checkout -b release/v1.0
+
+
+Push it to GitHub:
+git push -u origin release/v1.0
+
+
+Expected:
+[new branch] release/v1.0 -> release/v1.0
+
+
+Step 20. Create Pull Request from feature to release/v1.0
+1. Open your GitHub repository.
+2. Click Pull requests.
+3. Click New pull request.
+4. Select:
+Setting	Select
+Base branch	release/v1.0
+Compare branch	feature
+
+5. Click Create pull request.
+6. Click Merge pull request.
+7. Confirm the merge.
+
+
+	Part 7: Create a Hotfix branch
+Step 22. Create hotfix branch
+In Git Bash, execute:
+git checkout main
+
+
+Get the latest main branch:
+git pull origin main
+
+
+Create the hotfix branch:
+git checkout -b hotfix/bug-4
+
+
+Expected:
+Switched to a new branch 'hotfix/bug-4'
+
+
+Step 23. Make a bug fix
+Open index.html.
+
+Add this line:
+<p>Bug fixed successfully.</p>
+
+
+Save the file.
+Step 24. Commit and push hotfix
+git status
+
+
+git add .
+
+
+git commit -m "Fixed bug 4"
+
+
+git push -u origin hotfix/bug-4
+
+
+Expected:
+[new branch] hotfix/bug-4 -> hotfix/bug-4
+
+
+Part 8: Send Hotfix Pull Requests
+Step 25. Merge hotfix into main
+1. Open GitHub repository.
+2. Click Pull requests → New pull request.
+3. Select:
+Setting	Select
+Base branch	main
+Compare branch	hotfix/bug-4
+
+4. Click Create pull request.
+5. Click Merge pull request.
+6. Click Confirm merge.
+
+
+Step 26. Merge hotfix into develop
+Create another Pull Request:
+Setting	Select
+Base branch	develop
+Compare branch	hotfix/bug-4
+
+Click Create pull request, then Merge pull request and confirm.
+Part 9: Publish GitHub Release v1.0
+Step 27. Merge release branch into main
+1. Open GitHub.
+2. Click Pull requests.
+3. Click New pull request.
+4. Select:
+Setting	Select
+Base branch	main
+Compare branch	release/v1.0
+
+5. Click Create pull request.
+6. Click Merge pull request.
+7. Confirm the merge.
+
+done 
+
+
+
 
 
 EXP 5 : Automating Builds and Jobs using Jenkins with Docker Desktop
