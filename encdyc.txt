@@ -1,0 +1,68 @@
+Experiment: Data Encryption and Decryption of a File Using Python
+Aim: To encrypt a file so that nobody can read it without a key, and then decrypt it to get the original file back.
+Step 1: Install Python Library
+Open CMD and run:
+pip install cryptography
+python -m pip install cryptography
+
+
+Step 2: Create a Python File
+1. Create a folder named Encryption.
+2. Inside it, create a file named encryption.py.
+3. Create a text file named message.txt and write some text in it.
+Step 3: Write This Code
+from cryptography.fernet import Fernet
+
+# Generate an encryption key
+key = Fernet.generate_key()
+
+# Save the key
+with open("secret.key", "wb") as file:
+    file.write(key)
+
+# Read the key
+fernet = Fernet(key)
+
+# Read original file
+with open("message.txt", "rb") as file:
+    data = file.read()
+
+# Encrypt the file
+encrypted_data = fernet.encrypt(data)
+
+with open("encrypted.txt", "wb") as file:
+    file.write(encrypted_data)
+
+print("File Encrypted Successfully!")
+
+# Decrypt the file
+decrypted_data = fernet.decrypt(encrypted_data)
+
+with open("decrypted.txt", "wb") as file:
+    file.write(decrypted_data)
+
+print("File Decrypted Successfully!")
+
+
+Step 4: Execute the Program
+Open CMD in the Encryption folder and run:
+python encryption.py
+
+
+Step 5: Check the Output
+Expected output
+File Encrypted Successfully!
+File Decrypted Successfully!
+
+
+Your folder will contain:
+- message.txt – Original readable file.
+- secret.key – Secret encryption key.
+- encrypted.txt – Encrypted unreadable data.
+- decrypted.txt – Original text after decryption.
+
+
+
+Important: Keep secret.key safe. Without this key, you cannot decrypt the encrypted file.
+Result
+Successfully implemented file encryption and decryption using Python.
