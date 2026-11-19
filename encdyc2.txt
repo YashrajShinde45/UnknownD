@@ -1,0 +1,288 @@
+Experiment: Data Encryption and Decryption of a File Using Python
+Aim: To encrypt a file so that nobody can read it without a key, and then decrypt it to get the original file back.
+Step 1: Install Python Library
+Open CMD and run:
+pip install cryptography
+python -m pip install cryptography
+
+
+Step 2: Create a Python File
+1. Create a folder named Encryption.
+2. Inside it, create a file named encryption.py.
+3. Create a text file named message.txt and write some text in it.
+Step 3: Write This Code
+from cryptography.fernet import Fernet
+
+# Generate an encryption key
+key = Fernet.generate_key()
+
+# Save the key
+with open("secret.key", "wb") as file:
+    file.write(key)
+
+# Read the key
+fernet = Fernet(key)
+
+# Read original file
+with open("message.txt", "rb") as file:
+    data = file.read()
+
+# Encrypt the file
+encrypted_data = fernet.encrypt(data)
+
+with open("encrypted.txt", "wb") as file:
+    file.write(encrypted_data)
+
+print("File Encrypted Successfully!")
+
+# Decrypt the file
+decrypted_data = fernet.decrypt(encrypted_data)
+
+with open("decrypted.txt", "wb") as file:
+    file.write(decrypted_data)
+
+print("File Decrypted Successfully!")
+
+
+Step 4: Execute the Program
+Open CMD in the Encryption folder and run:
+python encryption.py
+
+
+Step 5: Check the Output
+Expected output
+File Encrypted Successfully!
+File Decrypted Successfully!
+
+
+Your folder will contain:
+- message.txt – Original readable file.
+- secret.key – Secret encryption key.
+- encrypted.txt – Encrypted unreadable data.
+- decrypted.txt – Original text after decryption.
+
+
+
+Important: Keep secret.key safe. Without this key, you cannot decrypt the encrypted file.
+Result
+Successfully implemented file encryption and decryption using Python.
+
+
+
+
+
+
+
+OpenVAS
+OpenVAS using Docker Desktop – Practical Guide
+According to your CS449 System Security Planning and IT Audit practical list, OpenVAS is used for these four experiments:
+Experiment	Target mentioned in your PDF
+15	https://openhub.net/p/OWASP-VWAD
+16	https://juice-shop.herokuapp.com
+17	https://google-gruyere.appspot.com
+18	https://bwapplive.com/
+
+List of Experiments for System Security Planning and IT Audit(1).pdf
+We will set up OpenVAS (Greenbone Vulnerability Management) using Docker Desktop on Windows, then use it to perform the practicals.
+
+Important: These are public websites. Only scan them if your instructor or the website owner has explicitly authorized the scan. OpenVAS can send many requests to a target. If you do not have permission, practise using a local test machine or an instructor-approved target instead.
+Part 1: Install and run OpenVAS using Docker Desktop
+Step 1: Check Docker Desktop
+1. Open Docker Desktop.
+2. Wait until Docker Engine is running.
+3. Make sure Docker is using Linux containers.
+4. Open CMD or PowerShell.
+Check Docker:
+docker --version
+docker compose version
+
+
+If both commands show version numbers, Docker is ready.
+Step 2: Create an OpenVAS folder
+Open CMD and execute:
+mkdir C:\OpenVAS
+cd C:\OpenVAS
+
+
+Step 3: Download the OpenVAS configuration file
+Run this command in PowerShell:
+Invoke-WebRequest -Uri "https://greenbone.github.io/docs/latest/_static/compose.yaml" -OutFile "compose.yaml"
+
+
+This downloads the official Greenbone Docker Compose file. It starts multiple containers required for OpenVAS. 
+Greenbone Community Documentation
+
+
+Check that the file exists:
+dir
+
+
+You should see:
+compose.yaml
+
+
+Step 4: Download OpenVAS containers
+Run:
+docker compose pull
+
+Wait for the images to download. This can take some time because OpenVAS uses multiple containers.
+Step 5: Start OpenVAS
+Run:
+docker compose up -d
+
+
+This starts the OpenVAS services in the background.
+
+Check the containers:
+docker compose ps
+
+You should see several Greenbone containers. Some data containers may exit after successfully copying their data; that is normal.
+Step 6: Set the admin password
+Run this command and replace YourPassword123 with your own password:
+docker compose exec -u gvmd gvmd gvmd --user=admin --new-password='YourPassword123'
+
+
+Your login details will be:
+- Username: admin
+- Password: Your chosen password
+Step 7: Open OpenVAS in your browser
+Open Chrome and visit:
+Open Greenbone Security Assistant
+
+
+
+
+
+
+
+beafn28.gitbook.io
+
+
+If Chrome displays a certificate warning, it is because the local installation uses a self-signed certificate. Continue only to your own local OpenVAS installation.
+
+Login using your admin credentials.
+
+Wait for the vulnerability feeds to finish loading before scanning. Initial feed synchronization can take a long time, sometimes hours. Scans may give incomplete results until the feeds are ready. 
+Greenbone Community Documentation+1
+
+
+Part 2: Perform the OpenVAS experiments
+Your PDF contains four OpenVAS experiments: 15, 16, 17 and 18.
+
+The procedure is almost the same for all four. You only change the target hostname.
+
+Important: OpenVAS is primarily a network vulnerability scanner. Enter the hostname, not the complete URL or webpage path. For example, juice-shop.herokuapp.com, not https://juice-shop.herokuapp.com.
+
+Only scan the following targets if you have permission from their owners or your instructor.
+Common scanning procedure
+Step 1: Open Tasks
+1. Login to OpenVAS.
+2. Open Scans.
+3. Select Tasks.
+4. Click the New Task icon.
+
+
+
+
+
+
+
+
+1gbits.com
+
+
+Step 2: Create a target
+1. Open Configuration → Targets.
+2. Click New Target.
+3. Enter a name for the target.
+4. In the Hosts field, enter the authorized hostname.
+5. Keep other settings at their defaults.
+6. Save the target.
+
+
+
+
+
+
+
+
+docs.greenbone.net
+
+
+Step 3: Create a scan task
+1. Go to Scans → Tasks.
+2. Click New Task.
+3. Enter a task name.
+4. Select the target you created.
+5. Select the default Full and fast scan configuration, if available.
+6. Save the task.
+
+
+
+
+
+
+
+
+docs.greenbone.net
+
+
+Step 4: Start the scan
+1. Find your task in the Tasks list.
+2. Click the Start button (play icon).
+3. Wait for the scan to complete.
+4. Open the task report to view the findings.
+
+
+
+
+
+
+
+
+medium.com
+
+
+Step 5: View and save the report
+1. Open the completed task.
+2. Click the report.
+3. Check the vulnerability results.
+4. Note the severity, host, port and vulnerability name.
+5. Export the report as PDF, if the PDF format is available.
+
+
+
+
+
+
+
+
+null-byte.wonderhowto.com
+
+
+
+Part 3: Target details for each experiment
+Use the common procedure above for each experiment, changing the target name and hostname.
+Experiment	Target name	Hostname
+15	OpenHub	openhub.net
+16	Juice Shop	juice-shop.herokuapp.com
+17	Google Gruyere	google-gruyere.appspot.com
+18	bWAPP	bwapplive.com
+
+These hostnames are extracted from the URLs in your practical list. List of Experiments for System Security Planning and IT Audit(1).pdf
+
+
+For each experiment, save:
+- Screenshot of the created target.
+- Screenshot of the scan task.
+- Screenshot of completed scan status.
+- Screenshot of vulnerability report.
+- Exported PDF report, if available.
+Do not write made-up vulnerability findings. Record only what your actual scan displays.
+
+Part 4: Stop OpenVAS
+After completing your practicals, open CMD in C:\OpenVAS and run:
+docker compose down
+
+
+This stops the containers but keeps the stored data.
